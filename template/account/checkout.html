@@ -1,0 +1,158 @@
+{% extends 'base.html'%}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="hero-wrap hero-bread" style="background-image: url({% static 'images/bg_1.jpg' %});"
+	 xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Checkout</span></p>
+            <h1 class="mb-0 bread">Checkout</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+	{% include 'partials/_alert.html' %}
+
+    <section class="ftco-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-xl-7 ftco-animate">
+			  <form method="POST"  class="billing-form">
+				  {% csrf_token %}
+				  <h3 class="mb-4 billing-heading">Billing Details</h3>
+							<br>
+					<div class="row align-items-end">
+
+						<div class="w-100"></div>
+						<div class="col-md-6">
+							<div class="form-group">
+							<label for="user_name">First Name</label>
+								<br>
+								<input placeholder="{{ user.first_name }}"/>
+							</div>
+						</div>
+					<span></span>
+						<div class="col-md-6">
+							<div class="form-group">
+							<label for="user_name">Last Name</label>
+								<br>
+								<input placeholder="{{ user.last_name }}"/>
+							</div>
+						</div>
+					<div class="w-100"></div>
+						<div class="w-100"></div>
+						<div class="col-md-6">
+							<div class="form-group">
+							<label for="street_address">Street Address</label>
+						   <!--<input type="text" class="form-control" placeholder="House number and street name">-->
+								{{ form.street_address }}
+						</div>
+						</div>
+						<div class="w-100"></div>
+						<div class="col-md-6">
+							<div class="form-group">
+							<label for="city">Town / City</label>
+								<br>
+						  <!-- <input type="text" class="form-control" placeholder=""> -->
+								{{ form.city }}
+						</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="zip">Postcode / ZIP *</label>
+								<br>
+						  <!--<input type="text" class="form-control" placeholder=""> -->
+								{{ form.zip }}
+						</div>
+						</div>
+						<div class="w-100"></div>
+						<div class="col-md-6">
+						<div class="form-group">
+							<label for="phone">Phone</label>
+							<br>
+						  <!-- <input type="text" class="form-control" placeholder=""> -->
+							{{ form.phone }}
+
+						</div>
+					  </div>
+					  <div class="col-md-6">
+						<div class="form-group">
+							<label for="email_address">Email Address</label>
+						  <!-- <input type="text" class="form-control" placeholder=""> -->
+							{{ form.email_address }}
+						</div>
+					</div>
+
+					</div>
+
+	         <!-- END -->
+				<div class="row mt-5 pt-3">
+	          	<div class="col-md-6 cart-wrap ftco-animate">
+    				<div class="cart-total mb-3">
+    					<h3>Cart's Total</h3>
+						<p class="d-flex">
+    						<span>Sub Total</span>
+    						{{ cart.get_subtotal_price}}
+    					</p>
+						{% if cart.get_subtotal_price >= 1 %}
+							<p class="d-flex">
+								<span>Delivery</span>
+								<span>{{ cart.delivery_price}}</span>
+							</p>
+						{% endif %}
+    					<hr>
+    					<p class="d-flex total-price">
+    						<span>Total</span>
+							{% if cart.get_subtotal_price >= 1 %}
+    							<span>{{ cart.get_final_total_price}}</span>
+							{% endif %}
+    					</p>
+    				</div>
+				</div>
+				</div>
+				  <br>
+				  <button type="submit"  class="btn btn-primary btn-lg ">Submit form </button>
+			  </form>
+		  </div>
+          </div> <!-- .col-md-8 -->
+        </div>
+	</section> <!-- .section -->
+
+		<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
+      <div class="container py-4">
+        <div class="row d-flex justify-content-center py-5">
+          <div class="col-md-6">
+          	<h2 style="font-size: 22px;" class="mb-0">Subcribe to our Newsletter</h2>
+          	<span>Get e-mail updates about our latest shops and special offers</span>
+          </div>
+          <div class="col-md-6 d-flex align-items-center">
+            <form action="#" class="subscribe-form">
+              <div class="form-group d-flex">
+                <input type="text" class="form-control" placeholder="Enter email address">
+                <input type="submit" value="Subscribe" class="submit px-3">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+<script type="text/javascript">
+
+  var google_api_key = "{{google_api_key|safe}}";
+  var base_country = "{{base_country|safe}}";
+
+</script>
+
+<script src="{% static 'google_places.js' %}"></script>
+
+	
+
+ {% endblock %}

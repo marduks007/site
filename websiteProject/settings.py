@@ -9,10 +9,14 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os.path
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+#from mpesa.LipaNaMpesaOnline import PASS_KEY, SAFARICOM_API, SHORT_CODE, HOST_NAME
+
+import listings
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -31,12 +35,25 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'map.apps.MapConfig',
+    'pages.apps.PagesConfig',
+    'blog.apps.BlogConfig',
+    'listings.apps.ListingsConfig',
+    'checkout.apps.CheckoutConfig',
+    'cart.apps.CartConfig',
+    'wishlist.apps.WishlistConfig',
+    'contact.apps.ContactConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_countries',
+    'crispy_forms',
+
+
+
 ]
 
 MIDDLEWARE = [
@@ -54,7 +71,7 @@ ROOT_URLCONF = 'websiteProject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'template')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -63,6 +80,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries':  {
+                            'templatetag': 'listings.templatetag.templatetag',
+                        }
         },
     },
 ]
@@ -75,8 +95,11 @@ WSGI_APPLICATION = 'websiteProject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'sparkles',
+        'USER': 'postgres',
+        'PASSWORD': 'puffpuffpeace',
+        'HOST':'localhost',
     }
 }
 
@@ -116,10 +139,36 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,'websiteProject/static'),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#media folder settings
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAG = {
+    messages.ERROR : 'danger',
+}
+
+
+#Email config
+#EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_PORT = 587
+#EMAIL_HOST_USER='marduk420@gmail.com'
+#EMAIL_HOST_PASSWORD='avengersassemble1996'
+#EMAIL_USE_TLS=True
+
+GOOGLE_API_KEY = "AIzaSyA1uTLF0cNaoXL7HpH3KYCiNgl8ISsYpqM"
+RECAPTCHA_KEY="6LfQ35scAAAAANpihmxRlYfyCN93Rjgw4i4rR2t0"
+RECAPTCHA_SECRET_KEY="6LfQ35scAAAAAB0EhZ81YICkW3BvQA14TFZfc9LA"
