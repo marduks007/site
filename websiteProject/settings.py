@@ -96,9 +96,9 @@ WSGI_APPLICATION = 'websiteProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sparkles',
-        'USER': 'postgres',
-        'PASSWORD': 'puffpuffpeace',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
         'HOST':'localhost',
     }
 }
@@ -165,10 +165,10 @@ MESSAGE_TAG = {
 #Email config
 #EMAIL_HOST = 'smtp.gmail.com'
 #EMAIL_PORT = 587
-#EMAIL_HOST_USER='marduk420@gmail.com'
-#EMAIL_HOST_PASSWORD='avengersassemble1996'
+#EMAIL_HOST_USER=''
+#EMAIL_HOST_PASSWORD=''
 #EMAIL_USE_TLS=True
 
-GOOGLE_API_KEY = "AIzaSyA1uTLF0cNaoXL7HpH3KYCiNgl8ISsYpqM"
-RECAPTCHA_KEY="6LfQ35scAAAAANpihmxRlYfyCN93Rjgw4i4rR2t0"
-RECAPTCHA_SECRET_KEY="6LfQ35scAAAAAB0EhZ81YICkW3BvQA14TFZfc9LA"
+GOOGLE_API_KEY = ""
+RECAPTCHA_KEY=""
+RECAPTCHA_SECRET_KEY=""
